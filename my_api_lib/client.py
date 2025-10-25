@@ -53,7 +53,6 @@ class APIClient:
         """Send a POST request to the API."""
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
         url = self.append_api_key(url)
-        print(f"{url=}")
 
         response = requests.delete(url, headers=self._headers(), timeout=self.timeout)
         response.raise_for_status()

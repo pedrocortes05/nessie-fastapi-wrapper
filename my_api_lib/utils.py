@@ -80,3 +80,102 @@ class BankingAPI(APIClient):
         else:
             print("Invalid type")
             return
+
+    # Deposit
+    def get_account_deposits(self, id):
+        return self.get(f"/accounts/{id}/deposits")
+
+    def get_deposit(self, id):
+        return self.get(f"/deposits/{id}")
+
+    def create_account_deposit(self, id, body):
+        return self.post(f"/accounts/{id}/deposits", body)
+
+    def update_deposit(self, id, body):
+        return self.put(f"/deposits/{id}", body)
+
+    def delete_deposit(self, id):
+        return self.delete(f"/deposits/{id}")
+
+    # Loan
+    def get_account_loans(self, id):
+        return self.get(f"/accounts/{id}/loans")
+
+    def get_loan(self, id):
+        return self.get(f"/loans/{id}")
+
+    def create_account_loan(self, id, body):
+        return self.post(f"/accounts/{id}/loans", body)
+
+    def update_loan(self, id, body):
+        return self.put(f"/loans/{id}", body)
+
+    def delete_loan(self, id):
+        return self.delete(f"/loans/{id}")
+
+    # Merchant
+    def get_merchants(self):
+        return self.get(f"/merchants")
+
+    def get_merchant(self, id):
+        return self.get(f"/merchants/{id}")
+
+    def create_merchant(self, body):
+        return self.post(f"/merchants", body)
+
+    def update_merchant(self, id, body):
+        return self.put(f"/merchants", body)
+
+    # Loan
+    def get_account_purchases(self, id):
+        return self.get(f"/accounts/{id}/purchases")
+
+    def get_merchant_account_purchases(self, id, account_id):
+        return self.get(f"/merchants/{id}/accounts/{account_id}/purchases")
+
+    def get_merchant_purchases(self, id):
+        return self.get(f"/merchants/{id}/purchases")
+
+    def get_purchase(self, id):
+        return self.get(f"/loans/{id}")
+
+    def create_account_purchase(self, id, body):
+        return self.post(f"/accounts/{id}/purchases", body)
+
+    def update_purchase(self, id, body):
+        return self.put(f"/purchases/{id}", body)
+
+    def delete_purchase(self, id):
+        return self.delete(f"/purchases/{id}")
+
+    # Transfer
+    def get_account_transfers(self, id):
+        return self.get(f"/accounts/{id}/transfers")
+
+    def get_transfer(self, id):
+        return self.get(f"/transfers/{id}")
+
+    def create_account_transfer(self, id, body):
+        return self.post(f"/accounts/{id}/transfers", body)
+
+    def update_transfer(self, id, body):
+        return self.put(f"/transfers/{id}", body)
+
+    def delete_transfer(self, id):
+        return self.delete(f"/transfers/{id}")
+
+    # Withdrawal
+    def get_account_withdrawals(self, id):
+        return self.get(f"/accounts/{id}/withdrawals")
+
+    def get_withdrawal(self, id):
+        return self.get(f"/withdrawals/{id}")
+
+    def create_account_withdrawal(self, id, body):
+        return self.post(f"/accounts/{id}/withdrawals", body)
+
+    def update_withdrawal(self, id, body):
+        return self.put(f"/withdrawals/{id}", body)
+
+    def delete_withdrawal(self, id):
+        return self.delete(f"/withdrawals/{id}")
