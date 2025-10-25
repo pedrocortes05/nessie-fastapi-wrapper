@@ -42,7 +42,7 @@ class APIClient:
         response.raise_for_status()
         return response.json()
 
-    def put(self, endpoint):
+    def delete(self, endpoint):
         """Send a POST request to the API."""
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
         if self.api_key:

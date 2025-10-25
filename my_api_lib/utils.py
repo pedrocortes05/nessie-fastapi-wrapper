@@ -26,3 +26,38 @@ class BankingAPI(APIClient):
 
     def get_atm(self, id):
         return self.get(f"/atms/{id}")
+
+    # Bill
+    def get_account_bills(self, id):
+        return self.get(f"/accounts/{id}/bills")
+
+    def get_bill(self, bill_id):
+        return self.get(f"/bills/{bill_id}")
+
+    def get_customer_bills(self, id):
+        return self.get(f"/customers/{id}/bills")
+    
+    def create_bill(self, id, body):
+        return self.post(f"/customers/{id}/bills", body)
+
+    def update_bill(self, bill_id, body):
+        return self.put(f"/bills/{bill_id}", body)
+
+    def delete_account(self, bill_id):
+        return self.delete(f"/bills/{bill_id}")
+
+    # Customer
+    def get_account_customer(self, id):
+        return self.get(f"/accounts/{id}/customer")
+
+    def get_customers(self):
+        return self.get(f"/customers")
+
+    def get_customer(self, id):
+        return self.get(f"/customers/{id}")
+    
+    def create_customer(self, id, body):
+        return self.post(f"/customers", body)
+
+    def update_customer(self, id, body):
+        return self.put(f"/customers/{id}", body)
