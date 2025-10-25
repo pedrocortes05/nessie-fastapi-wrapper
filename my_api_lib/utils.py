@@ -45,7 +45,7 @@ class BankingAPI(APIClient):
     def update_bill(self, bill_id, body):
         return self.put(f"/bills/{bill_id}", body)
 
-    def delete_account(self, bill_id):
+    def delete_bill(self, bill_id):
         return self.delete(f"/bills/{bill_id}")
 
     # Branch
