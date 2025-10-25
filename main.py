@@ -1,5 +1,5 @@
 from typing import Union, Optional
-from fastapi import FastAPI, Body, Query
+from fastapi import FastAPI, Body
 from dotenv import load_dotenv
 import os
 
@@ -20,7 +20,7 @@ def read_root():
 
 # Account
 @app.get("/accounts")
-def get_accounts():
+def get_accounts(data_type: str = None):
     return client.get_accounts()
 
 @app.get("/accounts/{id}")
@@ -45,7 +45,7 @@ def delete_account(id: int):
 
 # ATM
 @app.get("/atms")
-def get_atms():
+def get_atms(lat: str = None, lng: str = None, rad: str = None):
     return client.get_atms()
 
 @app.get("/atms/{atm_id}")
@@ -109,7 +109,7 @@ def update_customer(id: int, body: dict = Body(...)):
 
 # Data
 @app.delete("/data")
-def delete_data(data_type: Optional[str] = Query(None, alias="type")):
+def delete_data(data_type: str = None):
     return client.delete_data(data_type)
 
 # Deposit
@@ -156,7 +156,7 @@ def delete_loan(id: int):
 
 # Merchant
 @app.get("/merchants")
-def get_merchants():
+def get_merchants(lat: str = None, lng: str = None, rad: str = None):
     return client.get_merchants()
 
 @app.get("/merchants/{id}")
@@ -202,7 +202,7 @@ def delete_purchase(id: int):
 
 # Transfer
 @app.get("/accounts/{id}/transfers")
-def get_account_transfers(id: int):
+def get_account_transfers(id: int, data_type: str = None):
     return client.get_account_transfers(id)
 
 @app.get("/transfers/{id}")
