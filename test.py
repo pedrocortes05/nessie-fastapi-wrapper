@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 import os
 
 from my_api_lib.utils import BankingAPI
-from tests.ytest import test_get
 
 load_dotenv()
 api_Key = os.getenv("API_KEY")
