@@ -1,11 +1,16 @@
 from .client import APIClient
 
+allowed_account_types = ["Checking", "Credit Card", "Savings"]
 allowed_data_types = ["Accounts", "Bills", "Customers", "Deposits", "Loans", "Purchases", "Transfers", "Withdrawals"]
+allowed_transfer_types = ["payer", "payee"]
 
 class BankingAPI(APIClient):
     # Acccount
-    def get_accounts(self):
-        return self.get("/accounts")
+    def get_accounts(self, data_type=None):
+        if data_type in allowed_account_types:
+            return self.get(f"/accounts?type={data_type}")
+        else:
+            return self.get("/accounts")
 
     def get_account(self, id):
         return self.get(f"/accounts/{id}")
@@ -23,8 +28,17 @@ class BankingAPI(APIClient):
         return self.delete(f"/accounts/{id}")
     
     # ATM
-    def get_atms(self):
-        return self.get("/atms")
+    def get_atms(self, lat=None, lng=None, rad=None):
+        url = "/atms"
+        query = ""
+
+        if lat: query += f"lat={lat}"
+        if lng: query += f"lng={lng}"
+        if rad: query += f"rad={rad}"
+
+        if len(query) > 0: url += "?" + query
+
+        return self.get(url)
 
     def get_atm(self, id):
         return self.get(f"/atms/{id}")
@@ -73,13 +87,10 @@ class BankingAPI(APIClient):
 
     # Data
     def delete_data(self, data_type=None):
-        if not data_type:
-            return self.delete("/data")
-        elif data_type in allowed_data_types:
+        if data_type in allowed_data_types:
             return self.delete(f"/data?type={data_type}")
         else:
-            print("Invalid type")
-            return
+            return self.delete("/data")
 
     # Deposit
     def get_account_deposits(self, id):
@@ -114,8 +125,17 @@ class BankingAPI(APIClient):
         return self.delete(f"/loans/{id}")
 
     # Merchant
-    def get_merchants(self):
-        return self.get(f"/merchants")
+    def get_merchants(self, lat=None, lng=None, rad=None):
+        url = "/merchants"
+        query = ""
+
+        if lat: query += f"lat={lat}"
+        if lng: query += f"lng={lng}"
+        if rad: query += f"rad={rad}"
+
+        if len(query) > 0: url += "?" + query
+
+        return self.get(url)
 
     def get_merchant(self, id):
         return self.get(f"/merchants/{id}")
@@ -149,8 +169,11 @@ class BankingAPI(APIClient):
         return self.delete(f"/purchases/{id}")
 
     # Transfer
-    def get_account_transfers(self, id):
-        return self.get(f"/accounts/{id}/transfers")
+    def get_account_transfers(self, id, data_type):
+        if data_type in allowed_transfer_types:
+            return self.get(f"/accounts/{id}/transfers?type={data_type}")
+        else:
+            return self.get(f"/accounts/{id}/transfers")
 
     def get_transfer(self, id):
         return self.get(f"/transfers/{id}")
