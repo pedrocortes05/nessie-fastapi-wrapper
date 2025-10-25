@@ -15,6 +15,9 @@ class APIClient:
     def get(self, endpoint, params=None):
         """Send a GET request to the API."""
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        if self.api_key:
+            url = url + f"?key={self.api_key}"
+            
         response = requests.get(url, headers=self._headers(), params=params, timeout=self.timeout)
         response.raise_for_status()
         return response.json()
@@ -22,6 +25,29 @@ class APIClient:
     def post(self, endpoint, data=None):
         """Send a POST request to the API."""
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        if self.api_key:
+            url = url + f"?key={self.api_key}"
+
         response = requests.post(url, headers=self._headers(), json=data, timeout=self.timeout)
+        response.raise_for_status()
+        return response.json()
+
+    def put(self, endpoint, data=None):
+        """Send a POST request to the API."""
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        if self.api_key:
+            url = url + f"?key={self.api_key}"
+
+        response = requests.put(url, headers=self._headers(), json=data, timeout=self.timeout)
+        response.raise_for_status()
+        return response.json()
+
+    def put(self, endpoint):
+        """Send a POST request to the API."""
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        if self.api_key:
+            url = url + f"?key={self.api_key}"
+
+        response = requests.delete(url, headers=self._headers(), timeout=self.timeout)
         response.raise_for_status()
         return response.json()

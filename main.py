@@ -1,40 +1,13 @@
-import requests
-import json
+from dotenv import load_dotenv
 import os
 
-customerId = '1'
-apiKey = os.getenv("API_KEY")
+from my_api_lib.utils import BankingAPI
+from tests.ytest import test_get
 
-# url = f'http://api.reimaginebanking.com/customers/{customerId}/accounts?key={apiKey}'
-# payload = {
-#   "type": "Savings",
-#   "nickname": "test",
-#   "rewards": 10000,
-#   "balance": 10000,	
-# }
+load_dotenv()
+api_Key = os.getenv("API_KEY")
 
-url = f'http://api.nessieisreal.com/customers?key={apiKey}'
-payload = {
-  "first_name": "Pedro",
-  "last_name": "Cortes",
-  "address": {
-    "street_number": "123",
-    "street_name": "Dally",
-    "city": "San Pedro",
-    "state": "NL",
-    "zip": "10100"
-  }
-}
+client = BankingAPI("http://api.nessieisreal.com", api_Key)
+response = client.get_accounts()
 
-# Create a Savings Account
-response = requests.post( 
-	url, 
-	data=json.dumps(payload),
-	headers={'content-type':'application/json'},
-	)
-
-if response.status_code == 201:
-	print('account created')
-else:
-    print(f"Failed: {response.status_code}")
-    print(response.text)
+print(response)
